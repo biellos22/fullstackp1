@@ -1,0 +1,81 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API de Salas de Reunião",
+    "description": "Documentação da API para gerenciamento de salas de reunião e autenticação"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Cadastrar novo usuário",
+        "tags": ["Auth"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "email": { "type": "string" },
+                "password": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": { "description": "Usuário cadastrado com sucesso" },
+          "400": { "description": "Erro no cadastro" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login de usuário",
+        "tags": ["Auth"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": { "type": "string" },
+                "password": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Login bem-sucedido" },
+          "400": { "description": "Credenciais inválidas" }
+        }
+      }
+    },
+    "/rooms": {
+      "get": {
+        "summary": "Listar salas",
+        "tags": ["Rooms"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string",
+            "description": "Token JWT"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Lista de salas retornada com sucesso" },
+          "401": { "description": "Token inválido ou ausente" }
+        }
+      }
+    }
+  }
+}
